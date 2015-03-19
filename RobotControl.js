@@ -26,6 +26,8 @@ var ledBright = 0;
 b.pinMode(ledRed, b.OUTPUT);
 b.pinMode(ledGreen, b.OUTPUT);
 b.pinMode(ledYellow, b.OUTPUT);
+
+// Set initial conditions
 b.analogWrite(ledRed,1);
 b.analogWrite(ledYellow,1);
 b.analogWrite(ledGreen,1);
