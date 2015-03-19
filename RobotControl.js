@@ -18,9 +18,6 @@ console.log('Server running on: http://' + getIPAddress() + ':8090');
 var ledRed = "P9_14";
 var ledGreen = "P8_19";
 var ledYellow = "P9_16";
-var demoMode = false;
-var demoStep = 0;
-var demoCount = 0;
 var ledDir = 0;
 var ledBright = 0;
 
@@ -52,30 +49,23 @@ function handler (req, res) {
 }
  
 io.sockets.on('connection', function (socket) {
+  
   // listen to sockets and write analog values to LED's
-  socket.on('ledRed', function (data) {
+  socket.on('ledRed', function (data) 
+  {
     b.analogWrite(ledRed, 1-(data/100));
-//    console.log('Red: ' + data);
   });
-  socket.on('ledGreen', function (data) {
+  
+  socket.on('ledGreen', function (data) 
+  {
     b.analogWrite(ledGreen, 1-(data/100));
-//    console.log('Green: ' + data);
   });
-  socket.on('ledYellow', function (data) {
+  
+  socket.on('ledYellow', function (data) 
+  {
     b.analogWrite(ledYellow, 1-(data/100));
-//    console.log('Yellow: ' + data);
   });
-  socket.on('demo', function (data) {
-//    console.log("Demo: " + data);
-    // switch mode
-    if (data == 'on') {
-       demoMode = true;
-       runDemo();
-    } else if (data == 'off') {
-       demoMode = false;
-       led(1,1,1);
-    }
-  });
+  
 });
 
 
