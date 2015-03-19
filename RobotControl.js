@@ -7,13 +7,13 @@ var io = require('socket.io').listen(app);
 var fs = require('fs');
 var b = require('bonescript');
 
-app.listen(8080);
+app.listen(8090);
 // socket.io options go here
 io.set('log level', 2);   // reduce logging - set 1 for warn, 2 for info, 3 for debug
 io.set('browser client minification', true);  // send minified client
 io.set('browser client etag', true);  // apply etag caching logic based on version number
 
-console.log('Server running on: http://' + getIPAddress() + ':8080');
+console.log('Server running on: http://' + getIPAddress() + ':8090');
 
 var ledRed = "P9_14";
 var ledGreen = "P8_19";
@@ -40,7 +40,7 @@ function handler (req, res) {
   console.log('favicon requested');
   return;
   }
-  fs.readFile('HtmlLedDemo.html',    // load html file
+  fs.readFile('RobotHTML.html',    // load html file
   function (err, data) {
     if (err) {
       res.writeHead(500);
@@ -78,55 +78,31 @@ io.sockets.on('connection', function (socket) {
   });
 });
 
-setInterval(runDemo, 10);
-function runDemo() {
-  if (demoMode === true){
-    switch (demoStep){
-      case 0:
-        led(0,1,1);
-        break;
-      case 1:
-        led(1,0,1);
-        break;
-      case 2:
-        led(1,1,0);
-        break;
-      case 3:
-        led(ledBright,1,1);
-        break;
-      case 4:
-        led(1,ledBright,1);
-        break;
-      case 5:
-        led(1,1,ledBright);       
-        break;
-      case 6:
-        led(ledBright,ledBright,ledBright);
-        break;
-      case 7:
-        led(ledBright,ledBright,ledBright);
-        break;
-      case 8:
-        demoStep = 0;         
-        break;
-    }
-
-    demoCount++;
-    if (demoCount>100){
-      demoStep++;
-      demoCount=0;
-    }
-    if (ledDir===0) ledBright=ledBright+0.02;
-    else ledBright = ledBright-0.02;
-    if (ledBright>1) ledDir=1;
-    if (ledBright<0) ledDir=0;
-  }
-}
 
 function led(red, yellow, green){
   b.analogWrite(ledRed, red);
   b.analogWrite(ledYellow, yellow);
   b.analogWrite(ledGreen, green);  
+}
+
+function forward()
+{
+  
+}
+
+function reverse()
+{
+  
+}
+
+function turnright()
+{
+  
+}
+
+function turnleft()
+{
+  
 }
 
 // Get server IP address on LAN
