@@ -15,11 +15,18 @@ io.set('browser client etag', true);  // apply etag caching logic based on versi
 
 console.log('Server running on: http://' + getIPAddress() + ':8090');
 
-var ledRed = "P9_14";
-var ledGreen = "P8_19";
+// GPIO  L(9) 14,16,21,22 28,19,31,42 all available for PWM
+// GPIO  R(8) 7,8,9,10,13,19,34,36,45,46 all available for PWM 
+// http://beagleboard.org/support/BoneScript/analogWrite/
+var ledRed = "P9_15";
+var ledGreen = "P8_20";
 var ledYellow = "P9_16";
 var ledDir = 0;
 var ledBright = 0;
+var motorFR = "P8_08";
+var motorBR = "P8_46";
+var motorFL = "P8_07";
+var motorBL = "P8_45";
 
 
 // configure pins and set all low
