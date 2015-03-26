@@ -47,12 +47,17 @@ function handler (req, res) {
   });
 }
  
+ // Turn the socket on, do not change this line
 io.sockets.on('connection', function (socket) {
   
-  // listen to sockets and write analog values to LED's
+  // listen to sockets and do stuff based on that
   socket.on('message', function(message)
   {
     console.log(message);
+    if(message == "You pressed Enter")
+    {
+      console.log("Lets move some motors forward!");
+    }
   });
   
 });
