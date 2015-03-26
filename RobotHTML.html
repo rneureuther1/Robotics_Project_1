@@ -42,23 +42,7 @@
 
 
 
-<script>
-var xTriggered = 0;
-$('#target').keypress(function(event) {
-    socket.send("You pressed something");
-  if (event.keyCode == '13') {
-     event.preventDefault();
-     socket.send("You pressed Enter");
-   }
-   xTriggered++;
-   var msg = 'Handler for .keypress() called ' + xTriggered + ' time(s).';
-  $.print(msg, 'html');
-  $.print(event);
-});
 
-$('#other').click(function() {
-  $('#target').keypress();
-});</script>
 
 
 
@@ -119,4 +103,30 @@ $('#other').click(function() {
     </div>
 </div>
 </body>
+
+<script>
+var xTriggered = 0;
+$('#target').keypress(function(event) {
+    socket.send("You pressed something");
+  if (event.keyCode == '13') {
+     event.preventDefault();
+     socket.send("You pressed Enter");
+   }
+   xTriggered++;
+   var msg = 'Handler for .keypress() called ' + xTriggered + ' time(s).';
+  $.print(msg, 'html');
+  $.print(event);
+});
+
+$('#other').click(function() {
+  $('#target').keypress();
+});</script>
+
+
+
+
+
+
 </html>
+
+
