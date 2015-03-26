@@ -28,17 +28,6 @@ var motorBR = "P8_46";
 var motorFL = "P8_07";
 var motorBL = "P8_45";
 
-
-// configure pins and set all low
-b.pinMode(ledRed, b.OUTPUT);
-b.pinMode(ledGreen, b.OUTPUT);
-b.pinMode(ledYellow, b.OUTPUT);
-
-// Set initial conditions
-b.analogWrite(ledRed,1);
-b.analogWrite(ledYellow,1);
-b.analogWrite(ledGreen,1);
-
 function handler (req, res) {
   if (req.url == "/favicon.ico"){   // handle requests for favico.ico
   res.writeHead(200, {'Content-Type': 'image/x-icon'} );
@@ -60,29 +49,12 @@ function handler (req, res) {
 io.sockets.on('connection', function (socket) {
   
   // listen to sockets and write analog values to LED's
-  socket.on('ledRed', function (data) 
-  {
-    b.analogWrite(ledRed, 1-(data/100));
-  });
   
-  socket.on('ledGreen', function (data) 
-  {
-    b.analogWrite(ledGreen, 1-(data/100));
-  });
-  
-  socket.on('ledYellow', function (data) 
-  {
-    b.analogWrite(ledYellow, 1-(data/100));
-  });
   
 });
 
 
-function led(red, yellow, green){
-  b.analogWrite(ledRed, red);
-  b.analogWrite(ledYellow, yellow);
-  b.analogWrite(ledGreen, green);  
-}
+
 
 function forward()
 {
