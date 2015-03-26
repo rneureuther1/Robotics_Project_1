@@ -50,7 +50,10 @@ function handler (req, res) {
 io.sockets.on('connection', function (socket) {
   
   // listen to sockets and write analog values to LED's
-  
+  socket.on('message', function(message))
+  {
+    console.log(message);
+  }
   
 });
 
