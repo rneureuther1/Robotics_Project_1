@@ -34,6 +34,30 @@
         
     
     </script>
+    
+    //posssible code for keyboard events
+    <script>
+var xTriggered = 0;
+$('#target').keypress(function(event) {
+  if (event.keyCode == '13') {
+     event.preventDefault();
+   }
+   xTriggered++;
+   var msg = 'Handler for .keypress() called ' + xTriggered + ' time(s).';
+  $.print(msg, 'html');
+  $.print(event);
+});
+
+$('#other').click(function() {
+  $('#target').keypress();
+});</script>
+
+
+
+    
+    
+    
+    
 </head>
 <body>
 <!-- Home -->
