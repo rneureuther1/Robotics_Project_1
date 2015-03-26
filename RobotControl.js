@@ -7,13 +7,14 @@ var io = require('socket.io').listen(app);
 var fs = require('fs');
 var b = require('bonescript');
 
-app.listen(8090);
+var port = 8090;
+app.listen(port);
 // socket.io options go here
 io.set('log level', 2);   // reduce logging - set 1 for warn, 2 for info, 3 for debug
 io.set('browser client minification', true);  // send minified client
 io.set('browser client etag', true);  // apply etag caching logic based on version number
 
-console.log('Server running on: http://' + getIPAddress() + ':8090');
+console.log('Server running on: http://' + getIPAddress() + port);
 
 // GPIO  L(9) 14,16,21,22 28,19,31,42 all available for PWM
 // GPIO  R(8) 7,8,9,10,13,19,34,36,45,46 all available for PWM 
