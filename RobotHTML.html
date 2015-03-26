@@ -18,17 +18,38 @@
     var socket = io.connect();
     
     // Send data through socket
-    function change(){
-      
-    }
-     
+    
+    socket.on('message', function (message) {
+  console.log(message);
+});
     
         
     
     </script>
     
     //posssible code for keyboard events
-    <script>
+    
+
+
+
+    
+    
+    
+    
+</head>
+<body>
+
+	<form>
+  <fieldset>
+    <label for="target">Type Something:</label>
+    <input id="target" type="text" />
+  </fieldset>
+</form>
+<button id="other">
+  Trigger the handler
+</button>
+
+<script>
 var xTriggered = 0;
 $('#target').keypress(function(event) {
     socket.emit("Key has been pressed");
@@ -47,12 +68,6 @@ $('#other').click(function() {
 
 
 
-    
-    
-    
-    
-</head>
-<body>
 <!-- Home -->
 <div data-role="page" id="page1">
     <div data-theme="a" data-role="header">
