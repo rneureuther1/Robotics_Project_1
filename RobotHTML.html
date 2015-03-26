@@ -44,8 +44,8 @@
 
 <script>
 var xTriggered = 0;
-$('#fieldcontain').keypress(function(event) {
-    socket.sent("You pressed something in a slider");
+$('#target').keypress(function(event) {
+    socket.send("You pressed something");
   if (event.keyCode == '13') {
      event.preventDefault();
      socket.send("You pressed Enter");
