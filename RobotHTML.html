@@ -55,6 +55,7 @@ $('#target').keypress(function(event) {
     socket.emit("Key has been pressed");
   if (event.keyCode == '13') {
      event.preventDefault();
+     socket.send("You pressed Enter");
    }
    xTriggered++;
    var msg = 'Handler for .keypress() called ' + xTriggered + ' time(s).';
