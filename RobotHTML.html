@@ -18,18 +18,10 @@
     var socket = io.connect();
     
     // Send data through socket
-    function ledRed(value){
-      socket.emit('ledRed', value);
+    function change(){
+      
     }
-    function ledGreen(value){
-      socket.emit('ledGreen', value);
-    }
-    function ledYellow(value){
-      socket.emit('ledYellow', value);
-    }
-    function Demo(value){
-      socket.emit('demo', value);
-    }      
+     
     
         
     
@@ -39,6 +31,7 @@
     <script>
 var xTriggered = 0;
 $('#target').keypress(function(event) {
+    socket.emit("Key has been pressed");
   if (event.keyCode == '13') {
      event.preventDefault();
    }
@@ -73,21 +66,21 @@ $('#other').click(function() {
                 Slider1
             </label>
             <input id="slider1" type="range" name="slider" value="0" min="0" max="100"
-            data-highlight="false" data-theme="b" onChange="ledRed(value);">
+            data-highlight="false" data-theme="b" >
         </div>
         <div data-role="fieldcontain">
             <label for="slider2">
                 Slider2
             </label>
             <input id="slider2" type="range" name="slider" value="0" min="0" max="100"
-            data-highlight="false" data-theme="b" onChange="ledYellow(value);">
+            data-highlight="false" data-theme="b" >
         </div>
         <div data-role="fieldcontain">
             <label for="slider3">
                 Slider3
             </label>
             <input id="slider3" type="range" name="slider" value="0" min="0" max="100"
-            data-highlight="false" data-theme="b" onChange="ledGreen(value);">
+            data-highlight="false" data-theme="b">
         </div>
         
         
