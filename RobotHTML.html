@@ -51,8 +51,8 @@
 
 <script>
 var xTriggered = 0;
-$('#target').keypress(function(event) {
-    socket.emit("Key has been pressed");
+$('#fieldcontain').keypress(function(event) {
+    socket.sent("You pressed something in a slider");
   if (event.keyCode == '13') {
      event.preventDefault();
      socket.send("You pressed Enter");
@@ -63,7 +63,7 @@ $('#target').keypress(function(event) {
   $.print(event);
 });
 
-$('#other').click(function() {
+$('#target').click(function() {
   $('#target').keypress();
 });</script>
 
