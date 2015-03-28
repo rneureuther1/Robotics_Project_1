@@ -54,7 +54,7 @@
 	<form>
   <fieldset>
     <label for="target">Type Something:</label>
-    <input id="target" type="text" onkeydown = getinput() />
+    <input id="target" type="text" onkeydown = keyispressed() />
   </fieldset>
 </form>
 <button id="other">
@@ -95,6 +95,7 @@
 </div>
 </body>
 
+<!--
 <script>
 var xTriggered = 0;
 
@@ -119,7 +120,14 @@ $('#other').click(function() {
 }
 
 </script>
+-->
 
+<script>
+	function keyispressed(event){
+		document.getElementById("demo").innerHTML = event.keyCode;
+		
+	}
+</script>
 
 
 
