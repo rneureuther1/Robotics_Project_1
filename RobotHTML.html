@@ -95,7 +95,7 @@ var xTriggered = 0;
 
 function getinput()
 {
-$('#target').keypress(function(event) {
+$('#target').keydown(function(event) {
     socket.send("You pressed something");
   if (event.keyCode == '13') {
      event.preventDefault();
