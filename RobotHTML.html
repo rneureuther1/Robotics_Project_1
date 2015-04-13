@@ -120,6 +120,8 @@ $('#other').click(function() {
 	function keyispressed(event){
 		document.getElementById("target").innerHTML = event.keyCode;
 		socket.emit('WASD', event.keycode);
+		console.log("KeyPress has been sent by HTML to the Socket");
+		console.log(event.keycode);
 		
 		
 	}
