@@ -77,7 +77,7 @@
     <form>
   <fieldset>
     <label for="target">Directional Commands (WASD):</label>
-    <input id="target" type="text" onkeydown = keyispressed() />
+    <input id="target" type="text" onkeydown = getinput() />
   </fieldset>
 </form>
 
@@ -89,7 +89,7 @@
 </div>
 </body>
 
-<!--
+
 <script>
 var xTriggered = 0;
 
@@ -114,7 +114,7 @@ $('#other').click(function() {
 }
 
 </script>
--->
+
 
 <script>
 	function keyispressed(event){
