@@ -82,6 +82,9 @@
             data-highlight="false" data-theme="b">
         </div>
     </div>
+    
+    
+    
 </div>
 </body>
 
@@ -114,7 +117,9 @@ $('#other').click(function() {
 
 <script>
 	function keyispressed(event){
-		document.getElementById("demo").innerHTML = event.keyCode;
+		document.getElementById("target").innerHTML = event.keyCode;
+		socket.emit('WASD', event.keycode);
+		
 		
 	}
 </script>
