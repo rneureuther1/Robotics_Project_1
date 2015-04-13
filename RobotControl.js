@@ -67,6 +67,7 @@ io.sockets.on('connection', function (socket) {
     var buttonpress = WASD;
     console.log("WASD button has been pushed");
     
+    /*
     switch(WASD)
       case W: 
           forward();
@@ -83,7 +84,7 @@ io.sockets.on('connection', function (socket) {
           
       default:
         system.log("Unknown Keypress in WASD socket");
-    
+    */
   });
   
 });
