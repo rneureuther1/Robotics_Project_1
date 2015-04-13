@@ -93,6 +93,7 @@
 <script>
 var xTriggered = 0;
 
+//This function will send input as long as the key is pressed due to ".keydown" instead of ".keypress"
 function getinput()
 {
 $('#target').keydown(function(event) {
@@ -101,6 +102,13 @@ $('#target').keydown(function(event) {
      event.preventDefault();
      socket.send("You pressed Enter");
    }
+   
+   if (event.keyCode == '32')
+   {
+      socket.emit('WASD', {TESTING SOCKET EMIT});
+   }
+   
+   
    xTriggered++;
    var msg = 'Handler for .keypress() called ' + xTriggered + ' time(s).';
   $.print(msg, 'html');
