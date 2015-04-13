@@ -108,12 +108,7 @@ $('#target').keydown(function(event) {
      socket.send("You pressed Enter");
    }
    
-   else if(event.keyCode == '32')
-   {
-   	event.preventDefault();
-   	console.log("Trying to Emit from HTML");
-   	socket.emit('WASD', {Test});
-   }
+   
   
    
    
