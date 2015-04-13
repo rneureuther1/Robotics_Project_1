@@ -33,9 +33,10 @@ function handler (req, res) {
   if (req.url == "/favicon.ico"){   // handle requests for favico.ico
   res.writeHead(200, {'Content-Type': 'image/x-icon'} );
   res.end();
-  console.log('favicon requested');
+  console.log('Favicon requested');
   return;
   }
+  console.log("Loading Webpage...");
   fs.readFile('RobotHTML.html',    // load html file
   function (err, data) {
     if (err) {
@@ -45,12 +46,13 @@ function handler (req, res) {
     res.writeHead(200);
     res.end(data);
   });
+  sonsole.log("Webpage Loaded");
 }
  
  // Turn the socket on, do not change this line
 io.sockets.on('connection', function (socket) {
   
-  // listen to sockets and do stuff based on that
+  // listen to sockets and do things based on that
   socket.on('message', function(message)
   {
     console.log(message);
@@ -60,6 +62,30 @@ io.sockets.on('connection', function (socket) {
     }
   });
   
+  socket.on('WASD', function(WASD))
+  {
+    var buttonpress = WASD;
+    console.log("WASD button has been pushed");
+    
+    switch(WASD)
+      case W: 
+          forward();
+          break;
+      case S:
+          reverse();
+          break;
+      case A:
+          turnleft();
+          break;
+      case D:
+          turnright();
+          break;
+          
+      default:
+        system.log("Unknown Keypress in WASD socket");
+    
+  }
+  
 });
 
 
@@ -67,22 +93,22 @@ io.sockets.on('connection', function (socket) {
 
 function forward()
 {
-  
+  console.log("Moving Forward");
 }
 
 function reverse()
 {
-  
+  console.log("Backing Up");
 }
 
 function turnright()
 {
-  
+  console.log("Turning Right");
 }
 
 function turnleft()
 {
-  
+  console.log("Turning Left");
 }
 
 // Get server IP address on LAN
