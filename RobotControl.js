@@ -46,7 +46,7 @@ function handler (req, res) {
     res.writeHead(200);
     res.end(data);
   });
-  sonsole.log("Webpage Loaded");
+  console.log("Webpage Loaded");
 }
  
  // Turn the socket on, do not change this line
