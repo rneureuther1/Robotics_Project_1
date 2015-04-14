@@ -65,7 +65,6 @@ io.sockets.on('connection', function (socket) {
   socket.on('WASD', function(WASDin)
   {
     
-    console.log("WASD button has been pushed");
     console.log(WASDin);
     
     /*
