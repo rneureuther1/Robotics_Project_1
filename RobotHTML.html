@@ -23,10 +23,10 @@
   console.log(message);
 });
 
-socket.on('WASD', function(WASDin)
+function sendWASD(value)
 {
-	console.log(WASDin);
-});
+	socket.emit('WASD', value);
+}
     
         
     
