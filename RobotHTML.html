@@ -35,6 +35,11 @@
 		//Get the keycode for the keypress
 		var x = event.which || event.keyCode;
 		
+		if(x==null)
+		{
+		document.getElementById("status").innerHTML = "Standing by";	
+		}
+		
 		//Based on the keypress, send the data over a specific socket ID
 		if(x == 87 || x == 65 || x == 83 || x == 68)
 		{
@@ -92,20 +97,11 @@
     <div id="StatusBox" data-role="content">
        <div class="first"></div>
        <span>Current Status: </span>
-       <span id="status">Enter Command</span>
+       <span id="status">Standby</span>
        
     </div>
     
-    <form>
-  <fieldset>
-    <label for="target">Directional Commands (WASD):</label>
-    <input id="target" type="text" onkeypress = keypressManager();
-  </fieldset>
-</form>
 
-<button id="other">
-  Trigger the handler
-</button>
     
     
 </div>
