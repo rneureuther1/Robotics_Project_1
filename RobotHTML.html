@@ -51,7 +51,7 @@
     
     //Keypresses will be recognized at any time at any place on the webpage
     $(document).keydown(function(event) {
-		idleTime=0;
+		
 		//Get the keycode for the keypress
 		var x = event.which || event.keyCode;
 		
@@ -70,7 +70,7 @@
 			else if(x==68)
 			document.getElementById("status").innerHTML = "Turning Right";
 		}
-		idleTime=0;
+	
 		
 		
 	});
