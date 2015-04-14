@@ -126,9 +126,10 @@ function getWASD()
 {
 	$(document).keydown(function(event) {
 		var x = event.which || event.keyCode;
-		
+		if(x == 87 || x == 65 || x == 83 || x == 68)
+		{
 		sendWASD(x);
-		
+		}
 		
 		return x;
 	});
