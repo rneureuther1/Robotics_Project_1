@@ -39,7 +39,7 @@
 		if(x == 87 || x == 65 || x == 83 || x == 68)
 		{
 		sendWASD(x);
-		document.getElementById("one").innerHTML = "New text!";
+		document.getElementById("status").innerHTML = "Moving per your command";
 		}
 		
 		
@@ -89,11 +89,12 @@
         </div>
     </div>
     
-    <div id="one">
+    <div id="StatusBox" data-role="content">
        <div class="first"></div>
-       <span>"Hi I am text"</span>
+       <span>Current Status: </span>
+       <span id="status">Enter Command</span>
        
-</div>
+    </div>
     
     <form>
   <fieldset>
