@@ -61,7 +61,7 @@
     var idleTime = 0;
     $(document).ready(function () {
     //Increment the idle time counter every minute.
-    var idleInterval = setInterval(timerIncrement, 1000); // 1 seconds
+    var idleInterval = setInterval(timerIncrement, 1500); // 1.5 seconds
 
     //Zero the idle timer on mouse movement.
     $(this).mousemove(function (e) {
@@ -74,7 +74,7 @@
 
 	function timerIncrement() {
 	  idleTime = idleTime + 1;
-	  if (idleTime > 0) { // 1 seconds
+	  if (idleTime > 0) { // 1.5 seconds
 	    document.getElementById("status").innerHTML = "Standing by";
 	 }
     }
