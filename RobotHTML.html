@@ -82,7 +82,7 @@ function sendWASD(value)
     <form>
   <fieldset>
     <label for="target">Directional Commands (WASD):</label>
-    <input id="target" type="text" onkeypress = sendWASD("W");
+    <input id="target" type="text" onkeypress = sendWASD(getkeypress());
   </fieldset>
 </form>
 
@@ -108,6 +108,12 @@ $('#target').keydown(function(event) {
      socket.send("You pressed Enter");
    }
    
+function getkeypress()
+{
+	$('#target').keyup(function(event)) {
+		return event.keyCode;
+	}
+}
    
   
    
