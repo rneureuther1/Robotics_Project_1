@@ -25,7 +25,7 @@
 
 function sendWASD(value)
 {
-	console.log("Value entering function: "+ value);
+	
 	socket.emit('WASD', value);
 }
     
@@ -83,7 +83,7 @@ function sendWASD(value)
     <form>
   <fieldset>
     <label for="target">Directional Commands (WASD):</label>
-    <input id="target" type="text" onkeypress = getkeypress();
+    <input id="target" type="text" onkeypress = getWASD();
   </fieldset>
 </form>
 
@@ -122,20 +122,13 @@ $('#other').click(function() {
 }
 
 
-function getkeypress()
+function getWASD()
 {
 	$(document).keydown(function(event) {
 		var x = event.which || event.keyCode;
-		console.log(x);
+		
 		sendWASD(x);
-		switch(x) 
-		{
-			case 87:
-				return 87;
-				break;
-			default:
-				return "NO";
-		}
+		
 		
 		return x;
 	});
