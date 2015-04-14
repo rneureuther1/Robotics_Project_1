@@ -18,31 +18,18 @@
     var socket = io.connect();
     
     // Send data through socket
-    
     socket.on('message', function (message) {
-  console.log(message);
-});
+  	console.log(message);
+    });
 
-function sendWASD(value)
-{
-	
+    function sendWASD(value) {
 	socket.emit('WASD', value);
-}
-    
-        
+    }
     
     </script>
-    
-    //posssible code for keyboard events
-    
-
-
-
-    
-    
-    
-    
 </head>
+
+
 <body>
 
 <!-- Home -->
@@ -83,7 +70,7 @@ function sendWASD(value)
     <form>
   <fieldset>
     <label for="target">Directional Commands (WASD):</label>
-    <input id="target" type="text" onkeypress = getWASD();
+    <input id="target" type="text" onkeypress = keypressManager();
   </fieldset>
 </form>
 
@@ -122,35 +109,30 @@ $('#other').click(function() {
 }
 
 
-function getWASD()
+function keypressManager()
 {
+	//The entire webpage may be clicked with valid keyboard inputs
 	$(document).keydown(function(event) {
+		
+		//Get the keycode for the keypress
 		var x = event.which || event.keyCode;
+		
+		//Based on the keypress, send the data over a specific socket ID
 		if(x == 87 || x == 65 || x == 83 || x == 68)
 		{
 		sendWASD(x);
+		document.getElementById("p1").innerHTML = "New text!";
 		}
 		
-		return x;
+		
 	});
 }
 
-</script>
-
-
-<script>
-	function keyispressed(event){
-		document.getElementById("target").innerHTML = event.keyCode;
-		socket.emit('WASD', event.keycode);
-		console.log("KeyPress has been sent by HTML to the Socket");
-		console.log(event.keycode);
-		
-		
-	}
-	
-
 
 </script>
+
+
+
 
 
 
