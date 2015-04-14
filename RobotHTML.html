@@ -82,7 +82,7 @@ function sendWASD(value)
     <form>
   <fieldset>
     <label for="target">Directional Commands (WASD):</label>
-    <input id="target" type="text" onkeypress = getinput() />
+    <input id="target" type="text" onkeypress = sendWASD("W");
   </fieldset>
 </form>
 
