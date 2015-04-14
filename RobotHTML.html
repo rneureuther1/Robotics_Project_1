@@ -26,6 +26,28 @@
 	socket.emit('WASD', value);
     }
     
+    
+    
+    
+    //Test
+    $(document).keydown(function(event) {
+		
+		//Get the keycode for the keypress
+		var x = event.which || event.keyCode;
+		
+		//Based on the keypress, send the data over a specific socket ID
+		if(x == 87 || x == 65 || x == 83 || x == 68)
+		{
+		sendWASD(x);
+		document.getElementById("p1").innerHTML = "New text!";
+		}
+		
+		
+	});
+    
+    
+    
+    
     </script>
 </head>
 
@@ -108,7 +130,7 @@ $('#other').click(function() {
 
 }
 
-
+/*
 function keypressManager()
 {
 	//The entire webpage may be clicked with valid keyboard inputs
@@ -127,6 +149,9 @@ function keypressManager()
 		
 	});
 }
+*/
+
+
 
 
 </script>
