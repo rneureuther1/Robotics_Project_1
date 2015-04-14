@@ -25,6 +25,7 @@
 
 function sendWASD(value)
 {
+	console.log("Value entering function: "+ value);
 	socket.emit('WASD', value);
 }
     
