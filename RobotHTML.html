@@ -126,6 +126,16 @@ function getkeypress()
 	$(document).keydown(function(event) {
 		var x = event.which || event.keyCode;
 		console.log(x);
+		
+		switch(x) 
+		{
+			case 87:
+				return 87;
+				break;
+			default:
+				return "NO";
+		}
+		
 		return x;
 	});
 }
