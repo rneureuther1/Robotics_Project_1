@@ -124,7 +124,8 @@ $('#other').click(function() {
 function getkeypress()
 {
 	$(document).keydown(function(event) {
-		return event.keyCode;
+		var x = event.which || event.keyCode;
+		return x;
 	});
 }
 
