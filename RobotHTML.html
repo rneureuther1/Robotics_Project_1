@@ -26,38 +26,7 @@
 	socket.emit('WASD', value);
     }
     
-    
-    
-    
-    //Keypresses will be recognized at any time at any place on the webpage
-    $(document).keydown(function(event) {
-		
-		//Get the keycode for the keypress
-		var x = event.which || event.keyCode;
-		
-		
-		
-		//Based on the keypress, send the data over a specific socket ID
-		if(x == 87 || x == 65 || x == 83 || x == 68)
-		{
-		sendWASD(x);
-			if(x==87)
-			document.getElementById("status").innerHTML = "Moving Forward";
-			else if(x==83)
-			document.getElementById("status").innerHTML = "Moving Backwards";
-			else if(x==65)
-			document.getElementById("status").innerHTML = "Turning Left";
-			else if(x==68)
-			document.getElementById("status").innerHTML = "Turning Right";
-		}
-		
-		
-		
-	});
-	
-	
-	
-    //Handles Idle time
+     //Handles Idle time
     var idleTime = 0;
     $(document).keyup(function () {
     //Increment the idle time counter every 1.5 seconds.
@@ -76,6 +45,40 @@
 	    document.getElementById("status").innerHTML = "Standing by";
 	 }
     }
+    
+    
+    
+    
+    
+    //Keypresses will be recognized at any time at any place on the webpage
+    $(document).keydown(function(event) {
+		idleTime=0;
+		//Get the keycode for the keypress
+		var x = event.which || event.keyCode;
+		
+		
+		
+		//Based on the keypress, send the data over a specific socket ID
+		if(x == 87 || x == 65 || x == 83 || x == 68)
+		{
+		sendWASD(x);
+			if(x==87)
+			document.getElementById("status").innerHTML = "Moving Forward";
+			else if(x==83)
+			document.getElementById("status").innerHTML = "Moving Backwards";
+			else if(x==65)
+			document.getElementById("status").innerHTML = "Turning Left";
+			else if(x==68)
+			document.getElementById("status").innerHTML = "Turning Right";
+		}
+		idleTime=0;
+		
+		
+	});
+	
+	
+	
+   
     
     
     
