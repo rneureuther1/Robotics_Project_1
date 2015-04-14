@@ -29,7 +29,7 @@
     
     
     
-    //Test
+    //Keypresses will be recognized at any time at any place on the webpage
     $(document).keydown(function(event) {
 		
 		//Get the keycode for the keypress
@@ -39,7 +39,7 @@
 		if(x == 87 || x == 65 || x == 83 || x == 68)
 		{
 		sendWASD(x);
-		document.getElementById("p1").innerHTML = "New text!";
+		document.getElementById("target").innerHTML = "New text!";
 		}
 		
 		
@@ -104,11 +104,12 @@
 </div>
 </body>
 
-
+<!--
 <script>
 var xTriggered = 0;
 
-//This function will send input as long as the key is pressed due to ".keydown" instead of ".keypress"
+
+
 function getinput()
 {
 $('#target').keydown(function(event) {
@@ -130,32 +131,8 @@ $('#other').click(function() {
 
 }
 
-/*
-function keypressManager()
-{
-	//The entire webpage may be clicked with valid keyboard inputs
-	$(document).keydown(function(event) {
-		
-		//Get the keycode for the keypress
-		var x = event.which || event.keyCode;
-		
-		//Based on the keypress, send the data over a specific socket ID
-		if(x == 87 || x == 65 || x == 83 || x == 68)
-		{
-		sendWASD(x);
-		document.getElementById("p1").innerHTML = "New text!";
-		}
-		
-		
-	});
-}
-*/
-
-
-
-
 </script>
-
+-->
 
 
 
