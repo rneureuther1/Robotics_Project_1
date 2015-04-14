@@ -124,7 +124,7 @@ $('#other').click(function() {
 
 function getWASD()
 {
-	$(document).keydown(function(event) {
+	$(document).keypress(function(event) {
 		var x = event.which || event.keyCode;
 		
 		sendWASD(x);
