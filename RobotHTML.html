@@ -29,8 +29,8 @@
      //Handles Idle time
     var idleTime = 0;
     $(document).keyup(function () {
-    //Increment the idle time counter every 1.5 seconds.
-    var idleInterval = setInterval(timerIncrement, 1500); // 1.5 seconds
+    //Increment the idle time counter every 2 seconds.
+    var idleInterval = setInterval(timerIncrement, 2000); // 2 seconds
 
     //Zero the idle timer on mouse movement.
     
@@ -40,8 +40,7 @@
 	});
 	
 	function timerIncrement() {
-	  idleTime = idleTime + 1;
-	  if (idleTime > 0) { // 1.5 seconds
+	  
 	    document.getElementById("status").innerHTML = "Standing by";
 	 }
     }
