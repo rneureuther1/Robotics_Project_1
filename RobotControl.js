@@ -59,7 +59,7 @@ function forward()
 function reverse()
 {
   console.log("Backing Up");
-  b.analogWrite(driveMotorFR, 0.5 , 2000);
+  b.analogWrite(driveMotorFR, 1 , 10000);
 }
 
 function turnright()
