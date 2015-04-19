@@ -104,7 +104,7 @@ function turnright()
 function turnleft()
 {
   console.log("Turning Left");
-  b.analogWrite(driveMotorFR, , 60);
+  b.analogWrite(driveMotorFR,0.9, 60);
 }
 
 function STOP()
