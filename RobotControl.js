@@ -52,7 +52,7 @@ function handler (req, res) {
 function forward()
 {
   console.log("Moving Forward");
-  b.analogWrite(driveMotorFR, 0.7, 2000);
+  b.analogWrite(driveMotorFR, 0.7, 2000, printJSON);
 }
 
 function reverse()
@@ -69,6 +69,9 @@ function turnleft()
 {
   console.log("Turning Left");
 }
+
+//Handles errors made by analogWrite();
+function printJSON(x) { console.log(JSON.stringify(x)); }
  
  // Turn the socket on, do not change this line
 io.sockets.on('connection', function (socket) {
