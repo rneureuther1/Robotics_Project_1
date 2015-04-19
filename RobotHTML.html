@@ -71,6 +71,11 @@
 			document.getElementById("status").innerHTML = "Turning Right";
 		}
 	
+		//Spacebar to stop all
+		if(x == 32)
+		{
+			socket.emit('Keypress',x);
+		}
 		
 		
 	});
