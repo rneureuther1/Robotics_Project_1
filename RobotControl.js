@@ -83,7 +83,7 @@ function scheduleNextUpdate() {
 function forward()
 {
   console.log("Moving Forward");
-  b.analogWrite(driveMotorFR, 0.1, 60);
+  updateDuty();
   
   //setTimeout(function(){b.analogWrite(driveMotorFR,0);}, 4000);
   
