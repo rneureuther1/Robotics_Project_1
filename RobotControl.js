@@ -49,11 +49,15 @@ function handler (req, res) {
 
 function forward()
 {
+  var i =0;
+
   console.log("Moving Forward");
+  for(i=0;i<20;i++)
+  {
   b.analogWrite(driveMotorFR, 0.7);
-  setTimeout(function(){}, 90); //Pause for 90ms
-  b.analogWrite(driveMotorFR, 0.7);
-  setTimeout(function(){}, 10); //Pause for 10ms
+  setTimeout(function(){b.analogWrite(driveMotorFR, 0);}, 90); //Stay high for 90ms before setting to low
+  }
+  
 }
 
 function reverse()
