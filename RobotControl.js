@@ -51,6 +51,9 @@ function forward()
 {
   console.log("Moving Forward");
   b.analogWrite(driveMotorFR, 0.7);
+  setTimeout(function(){}, 90); //Pause for 90ms
+  b.analogWrite(driveMotorFR, 0.7);
+  setTimeout(function(){}, 10); //Pause for 10ms
 }
 
 function reverse()
