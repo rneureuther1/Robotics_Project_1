@@ -120,7 +120,7 @@ io.sockets.on('connection', function (socket) {
     
   });
   
-  socket.on('Keypress', function(data))
+  socket.on('Keypress', function(data)
   {
     //Spacebar
     if(data == 32)
