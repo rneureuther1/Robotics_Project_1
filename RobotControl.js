@@ -90,16 +90,16 @@ io.sockets.on('connection', function (socket) {
     
     switch(WASDin)
     {
-      case W: 
+      case 87: //W
           forward();
           break;
-      case S:
+      case 83: //S
           reverse();
           break;
-      case A:
+      case 65: //A
           turnleft();
           break;
-      case D:
+      case 68: //D
           turnright();
           break;
           
