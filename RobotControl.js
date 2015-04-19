@@ -68,7 +68,7 @@ io.sockets.on('connection', function (socket) {
     console.log(WASDin);
     
     
-    switch(WASD)
+    switch(WASDin)
     {
       case 'W': 
           forward();
