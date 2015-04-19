@@ -65,6 +65,7 @@ function reverse()
 function turnright()
 {
   console.log("Turning Right");
+  b.analogWrite(driveMotorFR, 0.7, 60);
 }
 
 function turnleft()
