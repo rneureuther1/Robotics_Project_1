@@ -48,6 +48,26 @@ function handler (req, res) {
   });
   console.log("Webpage Loaded");
 }
+
+function forward()
+{
+  console.log("Moving Forward");
+}
+
+function reverse()
+{
+  console.log("Backing Up");
+}
+
+function turnright()
+{
+  console.log("Turning Right");
+}
+
+function turnleft()
+{
+  console.log("Turning Left");
+}
  
  // Turn the socket on, do not change this line
 io.sockets.on('connection', function (socket) {
@@ -94,25 +114,7 @@ io.sockets.on('connection', function (socket) {
 
 
 
-function forward()
-{
-  console.log("Moving Forward");
-}
 
-function reverse()
-{
-  console.log("Backing Up");
-}
-
-function turnright()
-{
-  console.log("Turning Right");
-}
-
-function turnleft()
-{
-  console.log("Turning Left");
-}
 
 // Get server IP address on LAN
 function getIPAddress() {
