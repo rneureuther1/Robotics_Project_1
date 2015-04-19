@@ -19,15 +19,11 @@ console.log('Server running on: http://' + getIPAddress() + ":" + port);
 // GPIO  L(9) 14,16,21,22 28,19,31,42 all available for PWM
 // GPIO  R(8) 7,8,9,10,13,19,34,36,45,46 all available for PWM 
 // http://beagleboard.org/support/BoneScript/analogWrite/
-var ledRed = "P9_15";
-var ledGreen = "P8_20";
 
-var ledDir = 0;
-var ledBright = 0;
-var driveMotorFR = "P9_16"; // Change back to P9_08"
-var driveMotorBR = "P8_46";
-var driveMotorFL = "P8_07";
-var driveMotorBL = "P8_45";
+var driveMotorFR = "P9_14"; 
+var driveMotorBR = "P9_16";
+var driveMotorFL = "P9_21";
+var driveMotorBL = "P9_22";
 
 b.pinMode(driveMotorFR, b.OUTPUT);
 
