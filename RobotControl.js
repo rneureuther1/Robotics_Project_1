@@ -104,7 +104,7 @@ io.sockets.on('connection', function (socket) {
           break;
           
       default:
-        system.log("Unknown Keypress in WASD socket");
+        console.log("Unknown Keypress in WASD socket");
     }
     
   });
