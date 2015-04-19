@@ -82,10 +82,10 @@ io.sockets.on('connection', function (socket) {
       case 'D':
           turnright();
           break;
-    }
           
       default:
         system.log("Unknown Keypress in WASD socket");
+    }
     
   });
   
