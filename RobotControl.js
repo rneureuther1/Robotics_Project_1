@@ -54,7 +54,7 @@ function handler (req, res) {
 function forward()
 {
   console.log("Moving Forward");
-  b.analogWrite('P8_08', 0.7, 2000, printJSON);
+  b.analogWrite(driveMotorFR, 0.7, 2000, printJSON);
 }
 
 function reverse()
