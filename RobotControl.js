@@ -50,7 +50,7 @@ function handler (req, res) {
 function forward()
 {
   console.log("Moving Forward");
-  b.analogWrite(driveMotorFR, 1, 2000);
+  b.analogWrite(driveMotorFR, 1, 50);
   
   //setTimeout(function(){b.analogWrite(driveMotorFR,0);}, 4000);
   
