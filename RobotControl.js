@@ -49,24 +49,17 @@ function handler (req, res) {
 
 function forward()
 {
-  var i =0;
-
   console.log("Moving Forward");
-  
-  /*
-  b.analogWrite(driveMotorFR, 0.7);
-  setTimeout(function(){b.analogWrite(driveMotorFR, 0);}, 90); //Stay high for 90ms before setting to low
-  */
-  
   b.analogWrite(driveMotorFR, 1, 2000);
   
-  setTimeout(function(){b.analogWrite(driveMotorFR,0);}, 4000);
+  //setTimeout(function(){b.analogWrite(driveMotorFR,0);}, 4000);
   
 }
 
 function reverse()
 {
   console.log("Backing Up");
+  b.analogWrite(driveMotorFR, 1 , 2500);
 }
 
 function turnright()
@@ -77,6 +70,11 @@ function turnright()
 function turnleft()
 {
   console.log("Turning Left");
+}
+
+function STOP()
+{
+  
 }
 
 //Handles errors made by analogWrite();
@@ -120,6 +118,15 @@ io.sockets.on('connection', function (socket) {
         console.log("Unknown Keypress in WASD socket");
     }
     
+  });
+  
+  socket.on('Keypress', function(data))
+  {
+    //Spacebar
+    if(data == 32)
+    {
+      b.analogWrite(driveMotorFR, 0);
+    }
   });
   
 });
