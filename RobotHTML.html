@@ -26,7 +26,7 @@
 	socket.emit('WASD', value);
     }
     
-     //Handles Idle time
+     /*//Handles Idle time
     var idleTime = 0;
     $(document).keyup(function () {
     //Increment the idle time counter every 2 seconds.
@@ -43,7 +43,7 @@
 	  
 	    document.getElementById("status").innerHTML = "Standing by";
 	 }
-    
+    */
     
     
     
@@ -75,6 +75,7 @@
 		if(x == 32)
 		{
 			socket.emit('Keypress',x);
+			document.getElementById("status").innerHTML = "Standing By";
 		}
 		
 		
