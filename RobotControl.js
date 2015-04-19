@@ -21,10 +21,10 @@ console.log('Server running on: http://' + getIPAddress() + ":" + port);
 // http://beagleboard.org/support/BoneScript/analogWrite/
 var ledRed = "P9_15";
 var ledGreen = "P8_20";
-var ledYellow = "P9_16";
+
 var ledDir = 0;
 var ledBright = 0;
-var driveMotorFR = "P8_08";
+var driveMotorFR = "P8_16"; // Change back to P9_08"
 var driveMotorBR = "P8_46";
 var driveMotorFL = "P8_07";
 var driveMotorBL = "P8_45";
