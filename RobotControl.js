@@ -24,10 +24,10 @@ var ledGreen = "P8_20";
 var ledYellow = "P9_16";
 var ledDir = 0;
 var ledBright = 0;
-var motorFR = "P8_08";
-var motorBR = "P8_46";
-var motorFL = "P8_07";
-var motorBL = "P8_45";
+var driveMotorFR = "P8_08";
+var driveMotorBR = "P8_46";
+var driveMotorFL = "P8_07";
+var driveMotorBL = "P8_45";
 
 function handler (req, res) {
   if (req.url == "/favicon.ico"){   // handle requests for favico.ico
@@ -52,6 +52,7 @@ function handler (req, res) {
 function forward()
 {
   console.log("Moving Forward");
+  b.analogWrite(driveMotorFR, 0.7, 2000);
 }
 
 function reverse()
