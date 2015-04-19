@@ -69,16 +69,16 @@ io.sockets.on('connection', function (socket) {
     
     
     switch(WASD)
-      case 'W': 
+      case "W": 
           forward();
           break;
-      case 'S':
+      case "S":
           reverse();
           break;
-      case 'A':
+      case "A":
           turnleft();
           break;
-      case 'D':
+      case "D":
           turnright();
           break;
           
