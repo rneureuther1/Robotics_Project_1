@@ -29,6 +29,8 @@ var driveMotorBR = "P8_46";
 var driveMotorFL = "P8_07";
 var driveMotorBL = "P8_45";
 
+b.pinmode(driveMotorFR, b.OUTPUT);
+
 function handler (req, res) {
   if (req.url == "/favicon.ico"){   // handle requests for favico.ico
   res.writeHead(200, {'Content-Type': 'image/x-icon'} );
