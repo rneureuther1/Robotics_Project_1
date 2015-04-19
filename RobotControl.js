@@ -50,7 +50,7 @@ function handler (req, res) {
 function forward()
 {
   console.log("Moving Forward");
-  b.analogWrite(driveMotorFR, 0.9, 2000);
+  b.analogWrite(driveMotorFR, 0.9, 60);
   
   //setTimeout(function(){b.analogWrite(driveMotorFR,0);}, 4000);
   
@@ -59,7 +59,7 @@ function forward()
 function reverse()
 {
   console.log("Backing Up");
-  b.analogWrite(driveMotorFR, 0.2 , 2000);
+  b.analogWrite(driveMotorFR, 0.2 , 60);
 }
 
 function turnright()
