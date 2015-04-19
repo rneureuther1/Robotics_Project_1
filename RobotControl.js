@@ -52,11 +52,10 @@ function forward()
   var i =0;
 
   console.log("Moving Forward");
-  for(i=0;i<20;i++)
-  {
+  
   b.analogWrite(driveMotorFR, 0.7);
   setTimeout(function(){b.analogWrite(driveMotorFR, 0);}, 90); //Stay high for 90ms before setting to low
-  }
+  
   
 }
 
