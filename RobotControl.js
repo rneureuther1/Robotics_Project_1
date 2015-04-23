@@ -7,7 +7,7 @@ var io = require('socket.io').listen(app);
 var fs = require('fs');
 var b = require('bonescript');
 
-var port = 8090;
+var port = 8010;
 app.listen(port);
 // socket.io options go here
 io.set('log level', 2);   // reduce logging - set 1 for warn, 2 for info, 3 for debug
