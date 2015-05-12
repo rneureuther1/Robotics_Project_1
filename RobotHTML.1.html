@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>UCF Lunar Knights</title>
+ 
+   
+ <script src="/socket.io/socket.io.js"></script>
+ 
+    <!-- Code for socket.io -->
+    <script>
+    var socket = io.connect();
+ 
+    // Send data through socket
+    socket.on('message', function (message) {
+         console.log(message);
+    });
+ 
+    function sendWASD(value) {
+        socket.emit('WASD', value);
+ 
+    }
+ 
+
+ 
+    element.addEventListener("click", checkKeyPressed, false);
+ 
+function forward() {
+document.getElementById("status").innerHTML = "Moving Forward";
+sendWASD(87); //W
+}
+
+function backward() {
+document.getElementById("status").innerHTML = "Moving Backwards";
+    sendWASD(83); //S
+}
+ 
+ function left() {
+     document.getElementById("status").innerHTML = "Turning Left";
+      sendWASD(65); //A
+ }
+ 
+ function right() {
+     document.getElementById("status").innerHTML = "Turning Right";
+     sendWASD(68); //D
+ }
+ 
+ function stop() {
+     document.getElementById("status").innerHTML = "Halted and standing by";
+     sendWASD(32); //Space
+ }
+ 
+ 
+  
+    </script>
+</head>
+ 
+ 
+<body>
+ 
+<!-- Home -->
+<div data-role="page" id="page1">
+ 
+ 
+ 
+ 
+    <div data-theme="a" data-role="header">
+        <h3>
+            UCF Lunar Knights
+        </h3>
+    </div>
+ 
+ 
+ 
+    <div data-role="content">
+    <iframe src="http://192.168.1.103:8070/stream_simple.html" width= "640" height = "480" scrolling= "no">Image should be here</iframe>
+        <div data-role="fieldcontain">
+ 
+        </div>
+ 
+        <button onclick=forward()>Forward</button>
+        <button onclick=backward()>Backward</button>
+        <button onclick=left()>Left</button>
+        <button onclick=right()>Right</button>
+        <button onclick=stop()>STOP</button>
+    </div>
+ 
+ 
+ 
+ 
+    <div id="StatusBox" data-role="content">
+       <div class="first"></div>
+       <span>Current Status: </span>
+       <span id="status">Ready</span>
+ 
+    </div>
+ 
+ 
+ 
+ 
+</div>
+</body>
+ 
+<!--
+<script>
+var xTriggered = 0;
+ 
+ 
+ 
+function getinput()
+{
+$('#target').keydown(function(event) {
+    socket.send("You pressed something");
+  if (event.keyCode == '13') {
+     event.preventDefault();
+     socket.send("You pressed Enter");
+   }
+ 
+   xTriggered++;
+   var msg = 'Handler for .keypress() called ' + xTriggered + ' time(s).';
+  $.print(msg, 'html');
+  $.print(event);
+});
+ 
+$('#other').click(function() {
+  $('#target').keypress();
+});
+ 
+}
+ 
+</script>
+-->
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+</html>
