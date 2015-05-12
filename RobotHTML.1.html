@@ -8,136 +8,107 @@
     <title>UCF Lunar Knights</title>
  
    
- <script src="/socket.io/socket.io.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
  
     <!-- Code for socket.io -->
     <script>
-    var socket = io.connect();
+        var socket = io.connect();
  
-    // Send data through socket
-    socket.on('message', function (message) {
-         console.log(message);
-    });
+        // Send data through socket
+        socket.on('message', function (message) {
+             console.log(message);
+         });
  
-    function sendWASD(value) {
-        socket.emit('WASD', value);
+        function sendWASD(value) {
+            socket.emit('WASD', value);
  
-    }
+         }
  
+        function forward() {
+            document.getElementById("status").innerHTML = "Moving Forward";
+            sendWASD(87); //W
+        }
 
+        function reverse() {
+            document.getElementById("status").innerHTML = "Moving Backwards";
+            sendWASD(83); //S
+        }
  
-    element.addEventListener("click", checkKeyPressed, false);
+        function left() {
+            document.getElementById("status").innerHTML = "Turning Left";
+            sendWASD(65); //A
+        }
  
-function forward() {
-document.getElementById("status").innerHTML = "Moving Forward";
-sendWASD(87); //W
-}
+        function right() {
+            document.getElementById("status").innerHTML = "Turning Right";
+            sendWASD(68); //D
+        }
+ 
+        function stop() {
+            document.getElementById("status").innerHTML = "Halted and standing by";
+            sendWASD(32); //Space
+        }
 
-function backward() {
-document.getElementById("status").innerHTML = "Moving Backwards";
-    sendWASD(83); //S
-}
- 
- function left() {
-     document.getElementById("status").innerHTML = "Turning Left";
-      sendWASD(65); //A
- }
- 
- function right() {
-     document.getElementById("status").innerHTML = "Turning Right";
-     sendWASD(68); //D
- }
- 
- function stop() {
-     document.getElementById("status").innerHTML = "Halted and standing by";
-     sendWASD(32); //Space
- }
- 
- 
-  
+        function getKeypress() {
+            //Get the Keypress
+            var input = document.getElementById("textbox").value;
+
+            //Call the required function
+            if(input=="W" || input=="w"){
+                forward();
+            }
+
+            else if(input=="S" || input=="s"){
+                reverse();
+            }
+
+            else if(input=="A" || input == "a"){
+                left();
+            }
+
+            else if(input=="D" || input=="d"){
+                right();
+            }
+
+            else if(input == " "){
+                stop();
+            }
+
+            //Clear the Text Box for visual purposes
+            document.getElementById("textbox").value = "";
+        }
     </script>
 </head>
- 
- 
+
+
 <body>
- 
 <!-- Home -->
 <div data-role="page" id="page1">
- 
- 
- 
- 
     <div data-theme="a" data-role="header">
         <h3>
             UCF Lunar Knights
         </h3>
     </div>
- 
- 
- 
+    
     <div data-role="content">
-    <iframe src="http://192.168.1.103:8070/stream_simple.html" width= "640" height = "480" scrolling= "no">Image should be here</iframe>
+        <iframe src="http://192.168.1.103:8070/stream_simple.html" width= "640" height = "480" scrolling= "no">Image should be here</iframe>
         <div data-role="fieldcontain">
- 
         </div>
  
-        <button onclick=forward()>Forward</button>
-        <button onclick=backward()>Backward</button>
-        <button onclick=left()>Left</button>
-        <button onclick=right()>Right</button>
-        <button onclick=stop()>STOP</button>
+        <button id= "forwardBtn" style="" onclick=forward()>Forward</button>
+        <button id = "backwardBtn" style=""onclick=reverse()>Backward</button>
+        <button id = "leftBtn" style="" onclick=left()>Left</button>
+        <button id = "rightBtn" style="" onclick=right()>Right</button>
+        <button id = "stopBtn" style="color:red" onclick=stop()>STOP</button>
+        <input id='textbox' type="text" onkeypress=getKeypress() onkeyup=getKeypress()>
     </div>
- 
- 
- 
- 
-    <div id="StatusBox" data-role="content">
+
+    <div id="StatusBox" data-role="content" >
        <div class="first"></div>
        <span>Current Status: </span>
        <span id="status">Ready</span>
- 
     </div>
- 
- 
- 
- 
 </div>
 </body>
- 
-<!--
-<script>
-var xTriggered = 0;
- 
- 
- 
-function getinput()
-{
-$('#target').keydown(function(event) {
-    socket.send("You pressed something");
-  if (event.keyCode == '13') {
-     event.preventDefault();
-     socket.send("You pressed Enter");
-   }
- 
-   xTriggered++;
-   var msg = 'Handler for .keypress() called ' + xTriggered + ' time(s).';
-  $.print(msg, 'html');
-  $.print(event);
-});
- 
-$('#other').click(function() {
-  $('#target').keypress();
-});
- 
-}
- 
-</script>
--->
- 
- 
- 
- 
- 
- 
- 
 </html>
+
