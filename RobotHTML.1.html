@@ -94,11 +94,11 @@
         <div data-role="fieldcontain">
         </div>
  
-        <button id= "forwardBtn" style="" onclick=forward()>Forward</button>
-        <button id = "backwardBtn" style=""onclick=reverse()>Backward</button>
-        <button id = "leftBtn" style="" onclick=left()>Left</button>
-        <button id = "rightBtn" style="" onclick=right()>Right</button>
-        <button id = "stopBtn" style="color:red" onclick=stop()>STOP</button>
+        <button class = "enjoy-css" id= "forwardBtn" style="" onclick=forward()>Forward</button>
+        <button class = "enjoy-css" id = "backwardBtn" style=""onclick=reverse()>Backward</button>
+        <button class = "enjoy-css" id = "leftBtn" style="" onclick=left()>Left</button>
+        <button class = "enjoy-css" id = "rightBtn" style="" onclick=right()>Right</button>
+        <button class = "enjoy-css" id = "stopBtn" style="color:red" onclick=stop()>STOP</button>
         <input id='textbox' type="text" onkeypress=getKeypress() onkeyup=getKeypress()>
     </div>
 
@@ -109,5 +109,40 @@
     </div>
 </div>
 </body>
+
+<style>
+.enjoy-css {
+  display: inline-block;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  margin: 0.5em;
+  padding: 0 1.5em;
+  border: 2px solid rgba(211,211,211,1);
+  font: normal normal bold 1em/2em Arial, Helvetica, sans-serif;
+  color: rgba(114,114,114,1);
+  white-space: nowrap;
+  background: rgba(234,234,234,1);
+  
+}
+
+.enjoy-css:hover {
+  cursor: pointer;
+  border: 2px solid rgba(178,178,178,1);
+  color: rgba(76,76,76,1);
+}
+
+.enjoy-css:active {
+  position: relative;
+  cursor: default;
+  top: 1px;
+  border: 1.8px solid rgba(211,211,211,1);
+  color: rgba(114,114,114,1);
+  background: rgba(247,247,247,1);
+
+}
+</style>
+
+
 </html>
 
