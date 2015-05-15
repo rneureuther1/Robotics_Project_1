@@ -47,6 +47,22 @@
             document.getElementById("status").innerHTML = "Halted and standing by";
             sendWASD(32); //Space
         }
+        
+        function bucketup(){
+            document.getElementById("status").innerHTML = "Bucket Moving Up";
+            sendWASD(80); //P
+        }
+        
+        function bucketdown(){
+            document.getElementById("status").innerHTML = "Bucket Moving Down";
+            sendWASD(76);
+            
+        }
+        
+        function auger(){
+            document.getElementById("status").innerHTML = "Auger Started";
+            sendWASD(77);
+        }
 
         function getKeypress() {
             //Get the Keypress
@@ -72,10 +88,30 @@
             else if(input == " "){
                 stop();
             }
+            
+            else if(input == "P" || input == "p"){
+                bucketup();
+            }
+            
+            else if(input =="L" || input == "l"){
+                bucketdown();
+                
+            }
+            
+            else if(input == "M" || input == "m"){
+                auger();
+            }
 
             //Clear the Text Box for visual purposes
             document.getElementById("textbox").value = "";
         }
+    //Add this! -Kelvin
+    window.onload = function() {
+        document.addEventListener("keypress", function(e){
+            console.log(e);
+            //looks like e.charCode gives something useful
+        });
+    };
     </script>
 </head>
 
@@ -89,8 +125,15 @@
         </h3>
     </div>
     
+    <div id="StatusBox" data-role="content" >
+       <div class="first"></div>
+       <span>Current Status: </span>
+       <span id="status">Ready</span>
+    </div>
+    
+    
     <div data-role="content">
-        <iframe src="http://192.168.1.103:8070/stream_simple.html" width= "640" height = "480" scrolling= "no">Image should be here</iframe>
+        <iframe src="http://192.168.1.102:8070/stream_simple.html" width= "640" height = "480" scrolling= "no">Image should be here</iframe>
         <div data-role="fieldcontain">
         </div>
  
@@ -102,11 +145,7 @@
         <input id='textbox' type="text" onkeypress=getKeypress() onkeyup=getKeypress()>
     </div>
 
-    <div id="StatusBox" data-role="content" >
-       <div class="first"></div>
-       <span>Current Status: </span>
-       <span id="status">Ready</span>
-    </div>
+    
 </div>
 </body>
 
@@ -145,4 +184,3 @@
 
 
 </html>
-
