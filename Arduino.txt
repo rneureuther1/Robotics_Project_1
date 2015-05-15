@@ -1,0 +1,95 @@
+#include <Servo.h>
+#define DEBUG 1
+Servo left, right, auger, white, black;
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  left.attach(11);  // attaches the servo on pin 9 to the servo object 
+  right.attach(12);
+  auger.attach(8);
+  white.attach(4);
+  black.attach(5);
+}
+int currentCommand = 's';
+void loop() {
+  // put your main code here, to run repeatedly:
+  if (Serial.available() > 0) {
+    currentCommand = Serial.read();
+  } else {
+    delay(1);
+    return;
+  }
+  switch (currentCommand) {
+    case 'b': // forwards
+      left.writeMicroseconds(1400);
+      right.writeMicroseconds(1600);
+      auger.writeMicroseconds(1500);
+      white.writeMicroseconds(1500);
+      black.writeMicroseconds(1500);
+      if (DEBUG) { Serial.write("forwards"); }
+    break;
+    case 'f': // backwards
+      left.writeMicroseconds(1600);
+      right.writeMicroseconds(1400);
+      auger.writeMicroseconds(1500);
+      white.writeMicroseconds(1500);
+      black.writeMicroseconds(1500);
+      if (DEBUG) { Serial.write("backwards"); }
+    break;
+    case 'r': // right
+      // NOTE: probably wrong
+      left.writeMicroseconds(1600);
+      right.writeMicroseconds(1600);
+      auger.writeMicroseconds(1500);
+      white.writeMicroseconds(1500);
+      black.writeMicroseconds(1500);
+      if (DEBUG) { Serial.write("left"); }
+    break;
+    case 'l': // left
+      // NOTE: probably wrong
+      left.writeMicroseconds(1400);
+      right.writeMicroseconds(1400);
+      auger.writeMicroseconds(1500);
+      white.writeMicroseconds(1500);
+      black.writeMicroseconds(1500);
+            if (DEBUG) { Serial.write("right"); }
+    break;
+    case 'z': // lift bucket
+      left.writeMicroseconds(1500);
+      right.writeMicroseconds(1500);
+      auger.writeMicroseconds(1500);
+      white.writeMicroseconds(1120); //1120 under 4.5kg, 13.7 V
+      black.writeMicroseconds(1000);
+            if (DEBUG) { Serial.write("lift"); }
+    break;
+    case 'd': // drop bucket
+      left.writeMicroseconds(1500);
+      right.writeMicroseconds(1500);
+      auger.writeMicroseconds(1500);
+      white.writeMicroseconds(1868); //1868 under 4.5 kg, 13.7 V
+      black.writeMicroseconds(2000);
+            if (DEBUG) { Serial.write("stop"); }
+    break;
+    case 'a':  // auger start
+      left.writeMicroseconds(1500);
+      right.writeMicroseconds(1500);
+      auger.writeMicroseconds(1700);
+      white.writeMicroseconds(1500);
+      black.writeMicroseconds(1500);
+            if (DEBUG) { Serial.write("auger"); }
+      break
+
+    case '\n':  // eat/ignore carriage returns
+    case '\r':
+      break;
+    case 's':  // stop all
+    default:
+      left.writeMicroseconds(1500);
+      right.writeMicroseconds(1500);
+      auger.writeMicroseconds(1500);
+      white.writeMicroseconds(1500);
+      black.writeMicroseconds(1500);
+            if (DEBUG) { Serial.write("stop"); }
+    break;
+  }
+}
