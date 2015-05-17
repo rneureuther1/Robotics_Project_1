@@ -1,6 +1,7 @@
 #include <Servo.h>
 #define DEBUG 1
-Servo left, right, auger, white, black;
+Servo left, right, auger, white, black, pan, tilt;
+int panPos=90, tiltPos=90;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -9,6 +10,11 @@ void setup() {
   auger.attach(8);
   white.attach(4);
   black.attach(5);
+  pan.attach(2);
+  tilt.attach(3);
+  
+  pan.write(panPos);
+  tilt.write(tiltPos);
 }
 int currentCommand = 's';
 void loop() {
@@ -19,7 +25,28 @@ void loop() {
     delay(1);
     return;
   }
+  
   switch (currentCommand) {
+    case 'v': //Pan Camera Left
+      panPos-=5;
+      pan.write(panPos);
+      break;
+      
+    case 'c': //Pan Camera Right
+      panPos+=5;
+      pan.write(panPos);
+      break;
+      
+    case 'm': //Tilt camera Up
+      tiltPos+=5;
+      tilt.write(tiltPos);
+      break;
+      
+    case 'g': //Tilt camera down
+      tiltPos-=5;
+      tilt.write(tiltPos);
+      break;
+      
     case 'b': // forwards
       left.writeMicroseconds(1400);
       right.writeMicroseconds(1600);
