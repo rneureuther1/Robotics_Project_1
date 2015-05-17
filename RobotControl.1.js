@@ -5,12 +5,11 @@
 var app = require('http').createServer(handler);
 var io = require('socket.io').listen(app);
 var fs = require('fs');
-var b = require('bonescript');
-var BBIO = require("bbio");
-var duty_min = 0.03;
-var position = 0;
-var increment = 0.1;
-var port = 8026;
+
+var SerialPort = require("serialport").SerialPort
+var uart = new SerialPort("/dev/ttyACM0");
+
+var port = 8022;
 app.listen(port);
 // socket.io options go here
 io.set('log level', 2);   // reduce logging - set 1 for warn, 2 for info, 3 for debug
@@ -18,25 +17,6 @@ io.set('browser client minification', true);  // send minified client
 io.set('browser client etag', true);  // apply etag caching logic based on version number
 
 console.log('Server running on: http://' + getIPAddress() + ":" + port);
-
-// GPIO  L(9) 14,16,21,22 28,19,31,42 all available for PWM
-// GPIO  R(8) 7,8,9,10,13,19,34,36,45,46 all available for PWM 
-// http://beagleboard.org/support/BoneScript/analogWrite/
-//The white actuator needs to be slower and have the values not equal to 1. Up should be -0.76 and down should be 0.751
-
-// var driveMotorR =   "P9_14"; 
-// var driveMotorL =   "P9_21";
-// var actuatorBlack = "P9_42";
-// var actuatorWhite = "P8_13";
-//var auger =         "P9_42";
-
-var PWM_FREQUENCY = 345;
-
-// b.pinMode(driveMotorR, b.OUTPUT);
-// b.pinMode(driveMotorL, b.OUTPUT);
-// b.pinMode(actuatorBlack, b.OUTPUT);
-// b.pinMode(actuatorWhite, b.OUTPUT);
-// b.pinMode(auger, b.OUTPUT);
 
 function handler (req, res) {
   if (req.url == "/favicon.ico"){   // handle requests for favico.ico
@@ -46,7 +26,7 @@ function handler (req, res) {
   return;
   }
   console.log("Loading Webpage...");
-  fs.readFile('RobotHTML.html',    // load html file
+  fs.readFile('RobotHTML.1.html',    // load html file
   function (err, data) {
     if (err) {
       res.writeHead(500);
@@ -58,77 +38,70 @@ function handler (req, res) {
   console.log("Webpage Loaded");
 }
 
-function pos2duty(pos)
-{
-  // return pos*0.115 + 0.03;
-  var period = 1000/PWM_FREQUENCY;
-  return (0.500*pos + 1.500)/period;
-}
-
-
 function forward()
 {
-  console.log("Moving Forward");
-  // b.analogWrite(driveMotorR, pos2duty(-1), PWM_FREQUENCY);
-  // b.analogWrite(driveMotorL, pos2duty(-1), PWM_FREQUENCY);    
-  
+  console.log("UART forward start");
+  uart.write(new Buffer("f"), function() {
+    console.log("UART forward sent");
+  });
 }
 
 function reverse()
 { 
-  // b.analogWrite(driveMotorR, pos2duty(1), PWM_FREQUENCY);
-  // b.analogWrite(driveMotorL, pos2duty(1), PWM_FREQUENCY);
-  console.log("Backing Up");
-}
-
-function turnright()
-{
-  console.log("Turning Right");
-  // b.analogWrite(driveMotorR, pos2duty(0.5), PWM_FREQUENCY);
+  console.log("UART backward start");
+  uart.write(new Buffer("b"), function() {
+    console.log("UART backward sent");
+  });
 }
 
 function turnleft()
 {
-  console.log("Turning Left");
-  // b.analogWrite(driveMotorR, pos2duty(0.5), PWM_FREQUENCY);
+  console.log("UART left start");
+  uart.write(new Buffer("l"), function() {
+    console.log("UART left sent");
+  });
+}
 
+function turnright()
+{
+  console.log("UART right start");
+  uart.write(new Buffer("r"), function() {
+    console.log("UART right sentpp");
+  });
 }
 
 function STOP()
 {
-  
+  console.log("UART stop start");
+  uart.write(new Buffer("s"), function() {
+    console.log("UART stop sent");
+  });
 }
-
-
 
 function bucketUp()
 {
-  //  b.analogWrite(actuatorBlack, pos2duty(-1), PWM_FREQUENCY);
-  // b.analogWrite(actuatorWhite, pos2duty(-0.76), PWM_FREQUENCY); // 1120 us
- console.log("Bucket Up"); 
+  console.log("UART lift bucket start");
+  uart.write(new Buffer("z"), function() {
+    console.log("UART lift sent");
+  });
 }
 
 function bucketDown()
 {
-  // b.analogWrite(actuatorBlack, pos2duty(1), PWM_FREQUENCY);
-  // b.analogWrite(actuatorWhite, pos2duty(0.751), PWM_FREQUENCY); // 1875.5 us
-  console.log("Bucket Down");
+  console.log("UART drop bucket start");
+  uart.write(new Buffer("d"), function() {
+    console.log("UART drop bucket sent");
+  });
 }
 
-function scheduleNextUpdate() {
-    // adjust position by increment and 
-    // reverse if it exceeds range of 0..1
-    position = position + increment;
-    if(position < 0) {
-        position = 0;
-        increment = -increment;
-    } else if(position > 1) {
-        position = 0;
-        increment = -increment;
-    }
+function auger()
+{
+  console.log("UART auger start");
+  uart.write(new Buffer("a"), function() {
+    console.log("UART auger sent");
     
-    // call turnright after 200ms
-    setTimeout(turnright, 200);
+  });
+  
 }
 
 //Handles errors made by analogWrite();
@@ -173,10 +146,21 @@ io.sockets.on('connection', function (socket) {
       case 76: //L
           bucketDown();
           break;
+      case 32: //Space
+          STOP();
+          break;
+      case 77: //M
+          auger();
+          break;
       default:
         console.log("Unknown Keypress in WASD socket");
     }
     
+  });
+  
+  socket.on('disconnect', function() {
+    console.log("Disconnect detected; stopping robot");
+    STOP();
   });
   
   socket.on('Keypress', function(data)
@@ -185,19 +169,11 @@ io.sockets.on('connection', function (socket) {
     if(data == 32)
     {
       console.log("Stop");
-      // b.analogWrite(driveMotorL, 0);
-      // b.analogWrite(driveMotorR, 0);
-      // b.analogWrite(actuatorBlack, 0);
-      // b.analogWrite(actuatorWhite, 0);
-      // b.analogWrite(auger,0);
+      STOP();
     }
   });
   
 });
-
-
-
-
 
 
 // Get server IP address on LAN
