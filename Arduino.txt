@@ -71,14 +71,13 @@ void loop() {
             if (DEBUG) { Serial.write("stop"); }
     break;
     case 'a':  // auger start
-      left.writeMicroseconds(1500);
-      right.writeMicroseconds(1500);
       auger.writeMicroseconds(1700);
-      white.writeMicroseconds(1500);
-      black.writeMicroseconds(1500);
             if (DEBUG) { Serial.write("auger"); }
-      break
-
+      break;
+    case 'o': //auger stop
+      auger.writeMicroseconds(1500);
+          if(DEBUG) {Serial.write("auger");}
+      break;
     case '\n':  // eat/ignore carriage returns
     case '\r':
       break;
