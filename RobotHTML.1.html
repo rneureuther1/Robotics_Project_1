@@ -63,11 +63,8 @@
             document.getElementById("status").innerHTML = "Auger Started";
             sendWASD(77);
         }
-
-        function getKeypress() {
-            //Get the Keypress
-            var input = document.getElementById("textbox").value;
-
+        
+        function processKeypress(input) {
             //Call the required function
             if(input=="W" || input=="w"){
                 forward();
@@ -92,24 +89,40 @@
             else if(input == "P" || input == "p"){
                 bucketup();
             }
-            
             else if(input =="L" || input == "l"){
                 bucketdown();
                 
             }
-            
             else if(input == "M" || input == "m"){
                 auger();
             }
+        }
+
+        function getKeypress() {
+            //Get the Keypress
+            var input = document.getElementById("textbox").value;
+            processKeypress(input);
 
             //Clear the Text Box for visual purposes
             document.getElementById("textbox").value = "";
         }
-    //Add this! -Kelvin
+    //Added this! -Kelvin
     window.onload = function() {
         document.addEventListener("keypress", function(e){
             console.log(e);
             //looks like e.charCode gives something useful
+            switch (e.charCode) {
+            case 119:
+            case 87:
+                processKeypress("w");
+                break;
+            case 97:
+            case 65:
+                processKeypress("a");
+                break;
+            default:
+                // NEED TO GET THE REST OF THESE WORKING
+            }
         });
     };
     </script>
@@ -133,7 +146,7 @@
     
     
     <div data-role="content">
-        <iframe src="http://192.168.1.102:8070/stream_simple.html" width= "640" height = "480" scrolling= "no">Image should be here</iframe>
+        <iframe src="http://192.168.1.100:8070/stream_simple.html" width= "640" height = "480" scrolling= "no">Image should be here</iframe>
         <div data-role="fieldcontain">
         </div>
  
