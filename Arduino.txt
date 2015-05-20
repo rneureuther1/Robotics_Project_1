@@ -1,17 +1,20 @@
 #include <Servo.h>
 #define DEBUG 1
-Servo left, right, auger, white, black, pan, tilt;
+Servo left, right, auger, white, black, pan, tilt, door;
+
 int panPos=90, tiltPos=90;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  left.attach(11);  // attaches the servo on pin 9 to the servo object 
+  left.attach(11);   
   right.attach(12);
   auger.attach(8);
   white.attach(4);
   black.attach(5);
   pan.attach(2);
   tilt.attach(3);
+  door.attach(9);
+  
   
   pan.write(panPos);
   tilt.write(tiltPos);
@@ -84,7 +87,6 @@ void loop() {
     case 'z': // lift bucket
       left.writeMicroseconds(1500);
       right.writeMicroseconds(1500);
-      auger.writeMicroseconds(1500);
       white.writeMicroseconds(1120); //1120 under 4.5kg, 13.7 V
       black.writeMicroseconds(1000);
             if (DEBUG) { Serial.write("lift"); }
@@ -92,7 +94,6 @@ void loop() {
     case 'd': // drop bucket
       left.writeMicroseconds(1500);
       right.writeMicroseconds(1500);
-      auger.writeMicroseconds(1500);
       white.writeMicroseconds(1868); //1868 under 4.5 kg, 13.7 V
       black.writeMicroseconds(2000);
             if (DEBUG) { Serial.write("stop"); }
@@ -106,7 +107,12 @@ void loop() {
           if(DEBUG) {Serial.write("auger");}
       break;
     case '\n':  // eat/ignore carriage returns
-    case '\r':
+    case '\r': //door down
+          door.writeMicroseconds(1515);
+      break;
+      
+    case 'e': //door up
+          door.writeMicroseconds(1585);
       break;
     case 's':  // stop all
     default:
