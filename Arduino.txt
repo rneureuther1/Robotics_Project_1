@@ -6,7 +6,7 @@ int panPos=90, tiltPos=90;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  left.attach(11);   
+  left.attach(11);  // attaches the servo on pin 9 to the servo object 
   right.attach(12);
   auger.attach(8);
   white.attach(4);
@@ -18,6 +18,7 @@ void setup() {
   
   pan.write(panPos);
   tilt.write(tiltPos);
+  
 }
 int currentCommand = 's';
 void loop() {
@@ -107,12 +108,14 @@ void loop() {
           if(DEBUG) {Serial.write("auger");}
       break;
     case '\n':  // eat/ignore carriage returns
-    case '\r': //door down
-          door.writeMicroseconds(1515);
+    case '\r':
+       break;
+    case 'q': //door down
+          door.writeMicroseconds(1000);
       break;
       
     case 'e': //door up
-          door.writeMicroseconds(1585);
+          door.writeMicroseconds(2000);
       break;
     case 's':  // stop all
     default:
@@ -121,6 +124,7 @@ void loop() {
       auger.writeMicroseconds(1500);
       white.writeMicroseconds(1500);
       black.writeMicroseconds(1500);
+      door.writeMicroseconds(1500);
             if (DEBUG) { Serial.write("stop"); }
     break;
   }
