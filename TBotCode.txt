@@ -1,0 +1,93 @@
+/*************************************************************
+Built off Motor Shield 2-Channel DC Motor Demo
+
+For more information see:
+http://www.instructables.com/id/Arduino-Motor-Shield-Tutorial/
+
+*************************************************************/
+  int motorA = 3;
+  int motorB = 11;
+  
+  int speakerPin = 5;
+ 
+  int numTones = 10;
+  int tones[] = {261, 277, 294, 311, 330, 349, 370, 392, 415, 440};
+  //            mid C  C#   D    D#   E    F    F#   G    G#   A
+  
+  
+void setup() {
+  //Setup Channel A
+  pinMode(12, OUTPUT); //Initiates Motor Channel A pin
+  pinMode(9, OUTPUT); //Initiates Brake Channel A pin (not used)
+
+  //Setup Channel B
+  pinMode(13, OUTPUT); //Initiates Motor Channel B pin
+  pinMode(8, OUTPUT);  //Initiates Brake Channel B pin (not used)
+  
+  startTone();
+  
+}
+
+void loop(){
+  StraightOn(1000);
+  Turn90R();
+  delay(1000);
+}
+
+void StraightOn(int duration)
+{
+  //Motor A forward @ full speed
+ digitalWrite(12, HIGH); //Establishes forward direction of Channel A
+ digitalWrite(9, LOW);   //Disengage the Brake for Channel A
+  analogWrite(motorA, 255);   //Spins the motor on Channel A at full speed
+
+  digitalWrite(13,LOW);
+  digitalWrite(8, LOW);
+  analogWrite(motorB, 255);
+  
+  delay(duration);
+  
+  analogWrite(motorA, 0);
+  analogWrite(motorB, 0);
+  
+  
+  
+}
+
+void Turn90L()
+{
+    digitalWrite(12, LOW);
+  digitalWrite(13, LOW);
+  
+  analogWrite(motorA, 255);
+  analogWrite(motorB, 255);
+  
+  delay(700);
+  
+}
+
+void Turn90R()
+{
+  digitalWrite(12, HIGH);
+  digitalWrite(13, HIGH);
+  
+  analogWrite(motorA, 255);
+  analogWrite(motorB, 255);
+  
+  delay(700);
+}
+
+void startTone()
+{
+  
+    tone(speakerPin, tones[0]);
+    delay(50);
+    tone(speakerPin, 523);
+    delay(100);
+    tone(speakerPin, tones[0]);
+    delay(50);
+    tone(speakerPin, 523);
+    delay(100);
+
+  noTone(speakerPin);
+}
