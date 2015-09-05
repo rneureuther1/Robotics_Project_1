@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>UCF Lunar Knights</title>
+ 
+   
+    <script src="/socket.io/socket.io.js"></script>
+ 
+    <!-- Code for socket.io -->
+    <script>
+        var socket = io.connect();
+ 
+        // Send data through socket
+        socket.on('message', function (message) {
+             console.log(message);
+         });
+ 
+        function sendWASD(value) {
+            socket.emit('WASD', value);
+         }
+ 
+        function forward() {
+            document.getElementById("status").innerHTML = "Moving Forward";
+            sendWASD(87); //W
+        }
+
+        function reverse() {
+            document.getElementById("status").innerHTML = "Moving Backwards";
+            sendWASD(83); //S
+        }
+ 
+        function left() {
+            document.getElementById("status").innerHTML = "Turning Left";
+            sendWASD(65); //A
+        }
+ 
+        function right() {
+            document.getElementById("status").innerHTML = "Turning Right";
+            sendWASD(68); //D
+        }
+ 
+        function stop() {
+            document.getElementById("status").innerHTML = "Halted and standing by";
+            sendWASD(32); //Space
+        }
+        
+        function bucketup(){
+            document.getElementById("status").innerHTML = "Bucket Moving Up";
+            sendWASD(80); //P
+        }
+        
+        function bucketdown(){
+            document.getElementById("status").innerHTML = "Bucket Moving Down";
+            sendWASD(76);
+            
+        }
+        
+        function auger(){
+            document.getElementById("status").innerHTML = "Auger Started";
+            sendWASD(77);
+        }
+        
+        function augerstop(){
+            document.getElementById("status").innerHTML = "Auger Stopped";
+            sendWASD(78);
+            
+        }
+        
+        
+          function panleft(){
+            document.getElementById("status").innerHTML = "Pan left";
+            sendWASD(71);
+        }
+        
+        function panright(){
+            document.getElementById("status").innerHTML = "Pan right";
+            sendWASD(74);
+            
+        }
+        
+        function tiltup(){
+            document.getElementById("status").innerHTML = "Tilt up";
+            sendWASD(89);
+        }
+        
+        function tiltdown(){
+            document.getElementById("status").innerHTML = "Tilt down";
+            sendWASD(72);
+        }
+        
+        
+
+        function doordown() {
+            document.getElementById("status").innerHTML = "Door down";
+            sendWASD(75);
+        }
+
+        function doorup() {
+            document.getElementById("status").innerHTML = "Door Up";
+            sendWASD(73);
+        }
+        
+        
+        function processKeypress(input) {
+            //Call the required function
+            if(input=="W" || input=="w"){
+                forward();
+            }
+
+            else if(input=="S" || input=="s"){
+                reverse();
+            }
+
+            else if(input=="A" || input == "a"){
+                left();
+            }
+
+            else if(input=="D" || input=="d"){
+                right();
+            }
+
+            else if(input == " "){
+                stop();
+            }
+            
+            else if(input == "P" || input == "p"){
+                bucketup();
+            }
+            else if(input =="L" || input == "l"){
+                bucketdown();
+                
+            }
+            else if(input == "M" || input == "m"){
+                auger();
+            }
+            else if(input == "N" || input == "n"){
+                augerstop();
+            }
+            
+            else if(input == "Y" || input == "y"){
+                tiltup();
+            }
+            else if(input =="H" || input == "h"){
+                tiltdown();
+                
+            }
+            else if(input == "G" || input == "g"){
+                panleft();
+            }
+            else if(input == "J" || input == "j"){
+                panright();
+            }
+            else if(input=="I" || input =="i"){
+	            doorup();
+            }
+            else if(input =="K" || input =="k"){
+	            doordown();
+            }
+    
+           
+        }
+
+        function getKeypress() {
+            //Get the Keypress
+            var input = document.getElementById("textbox").value;
+            processKeypress(input);
+
+            //Clear the Text Box for visual purposes
+            document.getElementById("textbox").value = "";
+        }
+    //Added this! -Kelvin
+    window.onload = function() {
+        document.addEventListener("keypress", function(e){
+            console.log(e);
+            //looks like e.charCode gives something useful
+            switch (e.charCode) {
+            case 119:
+            case 87:
+                processKeypress("w");
+                break;
+            case 97:
+            case 65:
+                processKeypress("a");
+                break;
+            default:
+                // NEED TO GET THE REST OF THESE WORKING
+            }
+        });
+    };
+    </script>
+</head>
+
+
+<body>
+<!-- Home -->
+<div data-role="page" id="page1">
+    <div data-theme="a" data-role="header">
+        <h3>
+            UCF Lunar Knights
+        </h3>
+    </div>
+    
+    <div id="StatusBox" data-role="content" >
+       <div class="first"></div>
+       <span>Current Status: </span>
+       <span id="status">Ready</span>
+    </div>
+    
+    
+    <div data-role="content">
+        <iframe src="http://192.168.1.100:8070/stream_simple.html" width= "640" height = "480" scrolling= "no">Image should be here</iframe>
+        <div data-role="fieldcontain">
+        </div>
+ 
+        <button class = "enjoy-css" id= "forwardBtn" style="" onclick=forward()>Forward</button>
+        <button class = "enjoy-css" id = "backwardBtn" style=""onclick=reverse()>Backward</button>
+        <button class = "enjoy-css" id = "leftBtn" style="" onclick=left()>Left</button>
+        <button class = "enjoy-css" id = "rightBtn" style="" onclick=right()>Right</button>
+        <button class = "enjoy-css" id = "stopBtn" style="color:red" onclick=stop()>STOP</button>
+        <input id='textbox' type="text" onkeypress=getKeypress() onkeyup=getKeypress()>
+    </div>
+
+    
+</div>
+</body>
+
+<style>
+.enjoy-css {
+  display: inline-block;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  margin: 0.5em;
+  padding: 0 1.5em;
+  border: 2px solid rgba(211,211,211,1);
+  font: normal normal bold 1em/2em Arial, Helvetica, sans-serif;
+  color: rgba(114,114,114,1);
+  white-space: nowrap;
+  background: rgba(234,234,234,1);
+  
+}
+
+.enjoy-css:hover {
+  cursor: pointer;
+  border: 2px solid rgba(178,178,178,1);
+  color: rgba(76,76,76,1);
+}
+
+.enjoy-css:active {
+  position: relative;
+  cursor: default;
+  top: 1px;
+  border: 1.8px solid rgba(211,211,211,1);
+  color: rgba(114,114,114,1);
+  background: rgba(247,247,247,1);
+
+}
+</style>
+
+
+</html>
