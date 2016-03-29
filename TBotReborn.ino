@@ -22,13 +22,13 @@ int brakeB = 9;
 int directionB = 13;
 int pingPin = 7;
 int BluetoothData;
-String DIPstatus;
+int DIPstatus;
 
 //Create a bluetooth object
 SoftwareSerial TBot(TX, RX);
 
 // Function Declarations
-String getDIPstatus();
+int getDIPstatus();
 void stopMotors();
 void goForward();
 void goBack();
@@ -36,6 +36,7 @@ void rotate(int degrees, char direction);
 void rotateLeft();
 void rotateRight();
 long microsecondsToInches(long microseconds);
+int analogPinToInt(int a);
 
 //////////////////////// SETUP /////////////////////////////////
 
@@ -46,11 +47,17 @@ void setup() {
   // Ensure TBot is not moving during initialization
   stopMotors();
 
+  pinMode(A0, INPUT);
+  pinMode(A1, INPUT);
+  pinMode(A2, INPUT);
+  pinMode(A3, INPUT);
+  pinMode(A4, INPUT);
+
   DIPstatus = getDIPstatus();
   Serial.println(DIPstatus);
 
   // Begin the specific setup for each TBot function
-  if (DIPstatus == "00000")
+  if (DIPstatus == 0x00)
   {
     //Set up Bluetooth
     Serial.println("Setting up Bluetooth");
@@ -58,12 +65,12 @@ void setup() {
     TBot.println("Connected to TBot!");
   }
 
-  else if (DIPstatus == "00001")
+  else if (DIPstatus == 0x01)
   { // Set up ultrasonic sensor
     // No Setup Required
   }
 
-  else if (DIPstatus == "00010")
+  else if (DIPstatus == 0x02)
   {}
 
 }
@@ -73,7 +80,7 @@ void setup() {
 void loop()
 {
 
-  if (DIPstatus == "00000")
+  if (DIPstatus == 0x00)
   { //Do bluetooth things
     if (TBot.available()) {
       BluetoothData = TBot.read();
@@ -100,7 +107,7 @@ void loop()
     delay(100);// prepare for the next set of data
   }
 
-  else if (DIPstatus == "00001")
+  else if (DIPstatus == 0x01)
   { //Do ultrasonic things
     // establish variables for duration of the ping,
     // and the distance result in inches and centimeters:
@@ -124,10 +131,11 @@ void loop()
     // convert the time into a distance
     inches = microsecondsToInches(duration);
 
-    if (inches >= 10)
+    if (inches >= 5)
     {
       // Move Forward
       goForward();
+      
       delay(500);
     }
 
@@ -136,11 +144,12 @@ void loop()
       long randomNum = random(360);
       char randDirection = ((int)randomNum) % 2 == 0 ? 'L' : 'R';
       rotate(randomNum , randDirection);
+      
     }
 
   }
 
-  else if (DIPstatus == "00010")
+  else if (DIPstatus == 0x02)
   {
   }
 
@@ -148,27 +157,15 @@ void loop()
 
 /////////////////////////// HELPER ////////////////////////////
 
-String getDIPstatus() {
-  // Read the DIP Switch using analogRead and caste the
-  // integer output (0-1023) as a string. Strings are used
-  // so that the values can be concatenated together into
-  // a bit sequence.
-  String A0stat = String(analogRead(A0));
-  String A1stat = String(analogRead(A1));
-  String A2stat = String(analogRead(A2));
-  String A3stat = String(analogRead(A3));
-  String A4stat = String(analogRead(A4));
+int analogPinToInt(int a) {
+  return (analogRead(a) > 512) ? 1 : 0;
+}
 
-  // Convert any values that are not almost 0 to 1.
-  A0stat = (A0stat > "10") ? "1" : "0";
-  A1stat = (A1stat > "10") ? "1" : "0";
-  A2stat = (A2stat > "10") ? "1" : "0";
-  A3stat = (A3stat > "10") ? "1" : "0";
-  A4stat = (A4stat > "10") ? "1" : "0";
-
-  // Update our overall status which now holds a string of
-  // 1's and 0's
-  return A0stat + A1stat + A2stat + A3stat + A4stat;
+int getDIPstatus() {
+  
+  return analogPinToInt(A0) | (analogPinToInt(A1) << 1) |
+        (analogPinToInt(A2) << 2) | (analogPinToInt(A3) << 3) |
+        (analogPinToInt(A4) << 4); 
 }
 
 void stopMotors()
@@ -234,14 +231,14 @@ void rotate(int degrees, char direction) {
   }
   // A function of degrees is mapped to millisecond delay value. Arbitary guess
   // and currently not accurate whatsoever.
-  int delayduration = degrees * 1.5;
+  int delayduration = degrees * 50;
   delay(delayduration);
   stopMotors();
 
 }
 
 void rotateLeft() {
-      digitalWrite(directionA, LOW); //Establishes forward direction of Channel A
+    digitalWrite(directionA, LOW); //Establishes forward direction of Channel A
     digitalWrite(brakeA, LOW);   //Disengage the Brake for Channel A
     analogWrite(motorA, 255);   //Spins the motor on Channel A at full speed
 
@@ -259,4 +256,3 @@ void rotateRight() {
     digitalWrite(brakeB, LOW); //Disengage the Brake for Channel A
     analogWrite(motorB, 255); //Spins the motor on Channel A at full speed
 }
-
