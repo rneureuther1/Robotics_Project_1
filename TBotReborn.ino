@@ -66,7 +66,9 @@ void setup() {
   }
 
   else if (DIPstatus == 0x01)
-  { // Set up ultrasonic sensor
+  { 
+    Serial.println("Starting Ultrasonic");
+    // Set up ultrasonic sensor
     // No Setup Required
   }
 
@@ -130,20 +132,21 @@ void loop()
 
     // convert the time into a distance
     inches = microsecondsToInches(duration);
-
-    if (inches >= 5)
+    Serial.println(inches);
+    if (inches >= 2)
     {
       // Move Forward
       goForward();
-      
+      delay(500);
+      stopMotors();
       delay(500);
     }
 
     else {
       // Rotate in a random direction, and try again
-      long randomNum = random(360);
-      char randDirection = ((int)randomNum) % 2 == 0 ? 'L' : 'R';
-      rotate(randomNum , randDirection);
+      //long randomNum = random(360);
+      //char randDirection = ((int)randomNum) % 2 == 0 ? 'L' : 'R';
+      rotate(90 , 'R');
       
     }
 
@@ -231,9 +234,10 @@ void rotate(int degrees, char direction) {
   }
   // A function of degrees is mapped to millisecond delay value. Arbitary guess
   // and currently not accurate whatsoever.
-  int delayduration = degrees * 50;
+  int delayduration = degrees * 15;
   delay(delayduration);
   stopMotors();
+  delay(500);
 
 }
 
